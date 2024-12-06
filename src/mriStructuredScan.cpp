@@ -129,13 +129,13 @@ void MRIStructuredScan::FillPLTHeader(std::vector<std::string> &pltHeader, bool 
   pltHeader.clear();
   if (isFirstFile){
     pltHeader.push_back("TITLE = \"smpFilterOutput\"");
-    pltHeader.push_back("VARIABLES = \"X/D\"");
-    pltHeader.push_back("\"Y/D\"");
-    pltHeader.push_back("\"Z/D\"");
-    pltHeader.push_back("\"Conc%\"");
-    pltHeader.push_back("\"Vx/Ubulk\"");
-    pltHeader.push_back("\"Vy/Ubulk\"");
-    pltHeader.push_back("\"Vz/Ubulk\"");
+    pltHeader.push_back("VARIABLES = \"X\"");
+    pltHeader.push_back("\"Y\"");
+    pltHeader.push_back("\"Z\"");
+    pltHeader.push_back("\"Wall\"");
+    pltHeader.push_back("\"Vx\"");
+    pltHeader.push_back("\"Vy\"");
+    pltHeader.push_back("\"Vz\"");
     // Print all outputs
     for(size_t loopA=0;loopA<outputs.size();loopA++){
       // Add output Name
@@ -350,6 +350,7 @@ void MRIStructuredScan::ReadPltFile(std::string PltFileName, bool DoReorderCells
   double LocalZVel = 0.0;
   double CurrentModule = 0.0;
   bool Continue = false;
+  bool noErrors = true;
   std::string outString = "";
   // Vector with X,Y,Z Coords
   std::vector<double> XCoords;
@@ -434,8 +435,11 @@ void MRIStructuredScan::ReadPltFile(std::string PltFileName, bool DoReorderCells
     }catch (...){
       //Set Continue
       Continue = false;
-      std::string outString = "WARNING[*] Error Reading Line: "+MRIUtils::IntToStr(lineCount)+"; Line Skipped.\n";
-      printf("%s",outString.c_str());
+      if (noErrors) {
+        std::string outString = "WARNING[*] Error Reading Line: "+MRIUtils::IntToStr(lineCount)+"; Line (and possibly future lines) skipped.\n";
+        printf("%s",outString.c_str());
+      }
+      noErrors = false;
     }
     if (Continue){
       // Update Limits

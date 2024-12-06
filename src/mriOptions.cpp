@@ -76,7 +76,7 @@ MRIOptions::MRIOptions(){
   // Model Scaling
   scaleVelocities = false;
   scaleVelocityFactor = 1.0;
-  scaleVelocities = false;
+  scalePositions = false;
   scalePositionFactor = 1.0;
 }
 

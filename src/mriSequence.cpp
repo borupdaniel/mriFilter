@@ -355,6 +355,7 @@ void MRISequence::ApplyMedianFilter(int qtyID,int maxIt,int order,int filterType
 // CLEAN COMPONENT ON BOUNDARY
 // ===========================
 void MRISequence::cleanNormalComponentOnBoundary(){
+  printf("Cleaning Normal Component of Boundary Velocities...\n");
   for(int loopA=0;loopA<this->totalScans;loopA++){
     sequence[loopA]->cleanNormalComponentOnBoundary();
   }

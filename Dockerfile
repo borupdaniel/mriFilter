@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 RUN apt update -y
-RUN apt -y install cmake build-essential libboost-all-dev ssh
+RUN apt -y install cmake build-essential libboost-all-dev
 #RUN apt -y install sphinx python3-sphinx-rtd-theme
 
 COPY . /mriFilter
